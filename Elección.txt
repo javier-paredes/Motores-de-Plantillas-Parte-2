@@ -1,0 +1,2 @@
+Entre los dos motores de plantillas elijo como preferencia EJS, ya que la sintaxis, aunque lleva un poco de tiempo acostumbrarse, es mas similar a lo queya conozco de HTML.
+Además se me es más fácil aplicar funciones de Javascript como iteradores o condicionales.
