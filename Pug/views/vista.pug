@@ -8,17 +8,19 @@ html
     body
     .container.mt-3.jumbotron
         h2(style='color: blue') Listado de  Producto
-        
-        table.table.table-striped
-            tr
-                th Title 
-                th Price
-                th Thumbnail
+        if hayProductos == true
+            table.table.table-striped 
+                tr
+                    th Title 
+                    th Price
+                    th Thumbnail
 
-                each val in productos
-                    tr
-                        td= val.title
-                        td= val.price 
-                        td= val.thumbnail
+                    each val in productos
+                        tr
+                            td= val.title
+                            td= val.price 
+                            td= val.thumbnail
+        else    
+            h3 No hay productos en la lista
         
                 

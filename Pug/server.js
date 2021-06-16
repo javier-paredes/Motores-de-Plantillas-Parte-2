@@ -22,7 +22,7 @@ const routerApi = express.Router()
 
 routerApi.get('/productos/listar', (req, res) => {
     if(productos.producto.length > 0){
-        res.render('vista', {productos: productos.producto})
+        res.render('vista', {hayProductos: true, productos: productos.producto})
     }else if (productos.producto.length == 0){
         res.render('vista', {hayProductos: false})
     }    
@@ -47,7 +47,11 @@ routerApi.post('/productos/guardar', (req, res) => {
     nuevoProducto.thumbnail = req.body.thumbnail;
     nuevoProducto.id = productos.producto.length;
     productos.guardar(nuevoProducto)   
-    res.render('vista',{productos: productos.producto})
+    if(productos.producto.length > 0){
+        res.render('vista', {hayProductos: true, productos: productos.producto})
+    }else if (productos.producto.length == 0){
+        res.render('vista', {hayProductos: false, productos: []})
+    }      
 })
 
 //ACTUALIZAR PRODUCTO POR ID
