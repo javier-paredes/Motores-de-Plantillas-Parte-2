@@ -1,7 +1,8 @@
 const express = require('express');
 const { producto } = require('./api/productos');
 const productos = require('./api/productos');
-const handlebars = require('express-handlebars')
+// const handlebars = require('express-handlebars')
+const pug = require('pug')
 
 const app = express();
 app.use(express.json());
@@ -10,16 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 // ARCHIVOS ESTÁTICOS
 app.use(express.static('public'));
 
-//CONFIGURAR HANDLEBARS
-app.engine('hbs', handlebars({
-    extname: '.hbs',
-    defaultLayout: 'index.hbs',
-    layoutsDir: __dirname + '/views/layouts'    
-}));
-
-// ESTABLECER MOTOR DE PLANTILLAS
-app.set("view engine", "hbs");
-// DIRECTORIO ARCHIVOS PLANTILLAS
+// Agregar Pug
+app.set("view engine", "pug");
 app.set("views", "./views");
 
 // CREAR ROUTER
@@ -34,16 +27,6 @@ routerApi.get('/productos/listar', (req, res) => {
         res.render('vista', {hayProductos: false})
     }    
 })
-
-// routerApi.get('/productos/listar', (req, res) => {
-//     let mensajeLista = {}
-//     if (productos.producto.length == 0) {
-//         mensajeLista = { error: 'No hay productos cargados' }
-//     } else if (productos.producto.length > 0) {
-//         mensajeLista = productos.listar()
-//     }
-//     res.json(mensajeLista)
-// })
 
 // LISTAR PRODUCTOS POR ID
 routerApi.get('/productos/listar/:id', (req, res) => {
@@ -64,7 +47,7 @@ routerApi.post('/productos/guardar', (req, res) => {
     nuevoProducto.thumbnail = req.body.thumbnail;
     nuevoProducto.id = productos.producto.length;
     productos.guardar(nuevoProducto)
-    res.json(nuevoProducto)
+    res.render('vista')
 })
 
 //ACTUALIZAR PRODUCTO POR ID
